@@ -1,10 +1,11 @@
 (ns stefon-compojure.handler
   (:use compojure.core)
   (:require [compojure.handler :as handler]
-            [compojure.route :as route]))
+            [compojure.route :as route]
+            [stefon-webui-common.core :as common]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/" [] (common/handle-hello-world))
   (route/resources "/")
   (route/not-found "Not Found"))
 
