@@ -1,5 +1,7 @@
 (ns stefon-compojure.core
-  (:require jig)
+  (:require jig
+            [stefon-compojure.handler :refer (app-routes)]
+            [jig.web.ring :refer (add-handler)])
   (:import (jig Lifecycle)))
 
 
@@ -9,15 +11,13 @@
 
   (init [_ system]
 
-    ;;(println ">> init CALLED > " system)
+    (add-handler app-routes system config)
     system)
 
   (start [_ system]
 
-    ;;(println ">> start CALLED > " system)
     system)
 
   (stop [_ system]
 
-    ;;(println ">> stop CALLED > " system)
     system))
