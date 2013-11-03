@@ -5,9 +5,9 @@
             [stefon-webui-common.core :as common]))
 
 (defroutes app-routes
-  (GET "/helloworld" [] (common/handle-hello-world))
+  (GET "/helloworld" [:as req] (common/handle-hello-world req))
   (route/resources "/")
   (route/not-found "Not Found"))
 
-(def app
+#_(def app
   (handler/site app-routes))

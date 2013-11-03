@@ -11,8 +11,7 @@
 
   (init [_ system]
 
-    (add-handler app-routes system config)
-    system)
+    (add-handler app-routes system config))
 
   (start [_ system]
 
