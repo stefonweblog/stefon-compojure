@@ -7,4 +7,5 @@
             [ring/ring-jetty-adapter "1.2.0"]]
   :ring {:handler stefon-compojure.handler/app}
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.5"]]}})
+  {:dev {:dependencies [[ring-mock "0.1.5"]
+                        [midje "1.5.1"]]}})
