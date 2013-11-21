@@ -6,9 +6,13 @@
 
 (defroutes app-routes
 
+  ;; TODO - common HTTP handling
   (GET "/helloworld" [:as req]
        (common/handle-hello-world req))
 
+  ;; TODO
+  ;; load resources from the responsive-baseline project
+  ;; ex: (-> "public/apple-touch-icon.png" io/resource)
 
   ;; ===> POST
   (PUT "/post" [:as req] "put post")
