@@ -39,5 +39,5 @@
   (route/resources "/")
   (route/not-found "Not Found"))
 
-#_(def app
+(def app
   (handler/site app-routes))
