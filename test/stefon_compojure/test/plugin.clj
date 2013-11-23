@@ -6,8 +6,6 @@
 
 
 
-;; TODO - hookup midje auto-test and auto-doc
-
 ;; startup stefon & plugin (just memory-mode)
 
 ;; basic CRUD for posts
