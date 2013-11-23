@@ -1,12 +1,12 @@
 (ns stefon-compojure.core
-  (:require jig
+  #_(:require jig
             [stefon-compojure.handler :refer (app-routes)]
             [jig.web.ring :refer (add-handler)])
-  (:import (jig Lifecycle)))
+  #_(:import (jig Lifecycle)))
 
 
 ;; A Jig Component
-(deftype Component [config]
+#_(deftype Component [config]
   Lifecycle
 
   (init [_ system]

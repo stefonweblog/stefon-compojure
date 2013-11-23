@@ -3,10 +3,18 @@
   :url "http://example.com/FIXME"
 
   :documentation
-  {:files {"resources/doc/handler"
+  {:files {
+           "resources/doc/handler"
            {:input "test/stefon_compojure/test/handler.clj"
             :title "Handler Documentation"
             :sub-title "Describe the route handling functions in this plugin"
+            :author "Timothy Washington"
+            :email  "twashing@gmail.com"}
+
+           "resources/doc/plugin"
+           {:input "test/stefon_compojure/test/plugin.clj"
+            :title "Plugin Documentation"
+            :sub-title "Outlines the plugin lifecycle"
             :author "Timothy Washington"
             :email  "twashing@gmail.com"}}}
 
