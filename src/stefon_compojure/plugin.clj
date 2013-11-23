@@ -1,7 +1,7 @@
 (ns stefon-compojure.plugin
   )
 
-(defn plugin []
+(defn plugin
 
   ([function-map])
   ([function-map env])
