@@ -9,20 +9,22 @@
 
 
 
-;; startup stefon & plugin (just memory-mode)
+(defn bootstrap-stefon
+  "Startup stefon & plugin (just memory-mode)"
+  []
 
-(defn bootstrap-stefon []
-
-  (pluginC/bootstrap-stefon {:system-started? shell/system-started?
-                             :start-system shell/start-system
-                             :attach-plugin shell/attach-plugin}))
+  (pluginC/plugin {:system-started? shell/system-started?
+                   :start-system shell/start-system
+                   :attach-plugin shell/attach-plugin}))
 
 (deftest basic-crud
 
   (testing "main route"
 
-    (is (= (bootstrap-stefon) 1))
-    (is (= 2 2))))
+    (let [result (bootstrap-stefon)]
+
+      (is (= 0 1))
+      (is (= 2 2)))))
 
 
 ;; basic CRUD for posts

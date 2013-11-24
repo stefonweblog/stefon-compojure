@@ -1,5 +1,6 @@
 (ns stefon-compojure.plugin
-  )
+
+  (:require [stefon-datomic.config :as config]))
 
 (defn generic-handler [env message]
 
@@ -27,10 +28,18 @@
 
            cid (:id result)
            sendfn (:sendfn result)
-           recievefn (:recievefn result)] )))
+           recievefn (:recievefn result)]
+
+       result)))
 
 (defn plugin
 
-  ([function-map])
-  ([function-map env])
-  ([function-map env config]))
+  ([function-map]
+     (plugin function-map :dev))
+  ([function-map env]
+     (plugin function-map env (config/get-config)))
+  ([function-map env config]
+
+     (let [result (bootstrap-stefon function-map env)]
+
+       )))
