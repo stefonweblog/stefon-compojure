@@ -1,12 +1,29 @@
 (ns stefon-compojure.test.plugin
+
   (:use clojure.test
         ring.mock.request
-        stefon-compojure.plugin
-        midje.sweet))
+        midje.sweet)
+
+  (:require [stefon-compojure.plugin :as pluginC]
+            [stefon.shell :as shell]))
 
 
 
 ;; startup stefon & plugin (just memory-mode)
+
+(defn bootstrap-stefon []
+
+  (pluginC/bootstrap-stefon {:system-started? shell/system-started?
+                             :start-system shell/start-system
+                             :attach-plugin shell/attach-plugin}))
+
+(deftest basic-crud
+
+  (testing "main route"
+
+    (is (= (bootstrap-stefon) 1))
+    (is (= 2 2))))
+
 
 ;; basic CRUD for posts
 
@@ -56,7 +73,8 @@
     (is (= 1 1)))
 
   (testing "not-found route"
-    (is (= 2 2))))
+    (is (= 2 2))
+    (is (= 0 3))))
 
 (facts "about migration"
        (fact "Migration produces a new left and right map"

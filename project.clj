@@ -25,6 +25,12 @@
             [ring/ring-jetty-adapter "1.2.0"]]
   :ring {:handler stefon-compojure.handler/app}
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]
-                                  [midje "1.5.1"]]}}
+                                  [midje "1.5.1"]
+
+                                  ;; TODO - deleteme; checkout lib dependencies
+                                  [org.clojure/core.async "0.1.222.0-83d0c2-alpha"]
+                                  [prismatic/schema "0.1.3"]
+                                  [cljs-uuid "0.0.4"]
+                                  ]}}
 
   :eval-in-leiningen true)
