@@ -27,7 +27,7 @@
           heartbeat (sendfn {:id id
                              :message {:stefon.domain.schema {:parameters nil}}})]
 
-      (println hearbeat)
+      (println heartbeat)
 
       (is (= 1 1))
       (is (= 2 2)))))

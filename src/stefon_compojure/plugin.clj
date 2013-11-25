@@ -1,6 +1,6 @@
 (ns stefon-compojure.plugin
 
-  (:require [stefon-datomic.config :as config]))
+  (:require [stefon-compojure.config :as config]))
 
 (defn generic-handler [env message]
 
@@ -42,4 +42,4 @@
 
      (let [result (bootstrap-stefon function-map env)]
 
-       )))
+       result)))
