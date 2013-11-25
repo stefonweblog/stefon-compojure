@@ -1,6 +1,6 @@
 (defproject stefon-compojure "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Compujure plugin for the Stefon Weblog system"
+  :url "https://github.com/stefonweblog/stefon-compojure"
 
   :documentation
   {:files {

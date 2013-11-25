@@ -21,9 +21,15 @@
 
   (testing "main route"
 
-    (let [result (bootstrap-stefon)]
+    (let [result (bootstrap-stefon)
+          sendfn (:sendfn result)
+          id (:id result)
+          heartbeat (sendfn {:id id
+                             :message {:stefon.domain.schema {:parameters nil}}})]
 
-      (is (= 0 1))
+      (println hearbeat)
+
+      (is (= 1 1))
       (is (= 2 2)))))
 
 
