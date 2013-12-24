@@ -6,7 +6,7 @@
   (println ">> generic-handler CALLED > " message))
 
 
-(def *plugin-state* (atom {}))
+(def ^:dynamic *plugin-state* (atom {}))
 (defn get-plugin-state [] *plugin-state*)
 
 
@@ -20,6 +20,8 @@
   "We're going to expect an acknowledgement with the following keys:
    '(:id :sendfn :recievefn :channel)"
   ([result-map]
+
+     (println "... plugin-ack: " result-map)
      (plugin-ack result-map (config/get-config)))
 
   ([result-map config]
