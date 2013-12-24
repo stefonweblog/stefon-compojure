@@ -1,28 +1,23 @@
 (ns stefon-compojure.test.plugin
 
-  (:use clojure.test
-        ring.mock.request
-        midje.sweet)
+  ;;(:use )
 
-  (:require [stefon-compojure.plugin :as pluginC]
+  (:require [clojure.test :refer :all]
+            [ring.mock.request :refer :all]
+            [midje.sweet :refer :all]
+
+            [stefon-compojure.plugin :as pluginC]
             [stefon.shell :as shell]))
 
 
-
-(defn bootstrap-stefon
-  "Startup stefon & plugin (just memory-mode)"
-  []
-
-  (pluginC/plugin {:system-started? shell/system-started?
-                   :start-system shell/start-system
-                   :attach-plugin shell/attach-plugin}))
-
-(deftest basic-crud
+#_(deftest basic-crud
 
   (testing "main route"
 
     (let [result (bootstrap-stefon)
           sendfn (:sendfn result)
+          channel (:channel result)
+
           id (:id result)
           heartbeat (sendfn {:id id
                              :message {:stefon.domain.schema {:parameters nil}}})]
@@ -31,6 +26,19 @@
 
       (is (= 1 1))
       (is (= 2 2)))))
+
+
+
+(deftest test-plugin-stefon
+
+  (testing "plugging into stefon plugin framework"
+
+    (shell/start-system)
+    (shell/load-plugin 'stefon-compojure.plugin)
+
+    (is (not (empty? @(pluginC/get-plugin-state))))))
+
+
 
 
 ;; basic CRUD for posts
@@ -74,18 +82,3 @@
 ;; TODO - [plugin] aauthentication & admin console
 
 ;; TODO - [plugin] payment gateway
-
-
-(deftest test-app
-  (testing "main route"
-    (is (= 1 1)))
-
-  (testing "not-found route"
-    (is (= 2 2))
-    (is (= 0 3))))
-
-(facts "about migration"
-       (fact "Migration produces a new left and right map"
-             1 => 1)
-       (fact "multiple keys can be moved at once"
-             2 => 2))
