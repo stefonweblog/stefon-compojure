@@ -5,7 +5,9 @@
             [midje.sweet :refer :all]
 
             [stefon-compojure.plugin :as pluginC]
-            [stefon.shell :as shell]))
+            [stefon.shell :as shell]
+            [stefon.shell.kernel :as kernel]
+            [stefon.shell.plugin :as plugin]))
 
 
 #_(deftest plugin-stefon
@@ -31,17 +33,16 @@
           channel (:channel @(pluginC/get-plugin-state))
           id (:id @(pluginC/get-plugin-state))]
 
+      (def tchan (chan))
       (println "3 .. " (go (>! channel {:fu :bar})))
-
       (go (def msg (<! channel))
           (println "4 .. " msg))
+      (kernel/generate-system)
 
-      #_(go (loop [msg (<! channel)]
+      #_(go (let [msg (<! channel)]
+            (println ">> testing 123 > " msg)))
 
-            (println ">> testing 123 > " msg)
-            (recur (<! channel))))
-
-      #_(go (>! channel {:id id
+      #_(go (>! channel {:id "asdf"
                        :message {:stefon.domain.schema {:parameters nil}}}))
 
       ;; ... TODO - easy send / receive workflow
