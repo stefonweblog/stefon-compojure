@@ -1,5 +1,4 @@
 (ns stefon-compojure.test.plugin
-
   (:require [clojure.test :refer :all]
             [clojure.core.async :as async :refer :all]
             [ring.mock.request :refer :all]
@@ -30,11 +29,11 @@
 
           sendfn (:sendfn @(pluginC/get-plugin-state))
           channel (:channel @(pluginC/get-plugin-state))
-          id (:id @(pluginC/get-plugin-state)) ]
+          id (:id @(pluginC/get-plugin-state))]
 
-      (println "?? " @(pluginC/get-plugin-state))
-      #_(println "3 .. " (go (>! channel {:fu :bar})))
-      #_(go (def msg (<! channel))
+      (println "3 .. " (go (>! channel {:fu :bar})))
+
+      (go (def msg (<! channel))
           (println "4 .. " msg))
 
       #_(go (loop [msg (<! channel)]

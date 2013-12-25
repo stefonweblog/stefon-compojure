@@ -3,8 +3,8 @@
             [stefon-compojure.config :as config]))
 
 
-(defn generic-handler [env message]
-  (println ">> generic-handler CALLED > " message))
+(defn generic-handler [env system-atom message]
+  (println ">> generic-handler CALLED > system-atom[" system-atom "] > message[" message "]"))
 
 
 (def ^:dynamic *plugin-state* (atom {}))
@@ -15,8 +15,7 @@
   ([]
      (plugin :dev))
   ([env]
-     (fn [msg] ">> test-handler > " msg)
-     #_(partial generic-handler env)))
+     (clojure.core/partial generic-handler env)))
 
 (defn plugin-ack
   "We're going to expect an acknowledgement with the following keys:
