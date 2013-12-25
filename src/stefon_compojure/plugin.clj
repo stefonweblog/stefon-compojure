@@ -1,5 +1,5 @@
 (ns stefon-compojure.plugin
-  (:require [clojure.core.async :as async :refer :all]
+  (:require [clojure.core.async :as async]
             [stefon-compojure.config :as config]))
 
 

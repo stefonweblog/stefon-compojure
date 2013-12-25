@@ -1,6 +1,6 @@
 (ns stefon-compojure.test.plugin
   (:require [clojure.test :refer :all]
-            [clojure.core.async :as async :refer :all]
+            [clojure.core.async :as async]
             [ring.mock.request :refer :all]
             [midje.sweet :refer :all]
 
@@ -21,7 +21,20 @@
     (is (= (sort '(:id :sendfn :recievefn :channel))
            (sort (keys @(pluginC/get-plugin-state)))))))
 
-(deftest basic-crud
+
+(let [x (shell/stop-system)
+      x (shell/start-system)
+      x (shell/load-plugin 'stefon-compojure.plugin)
+
+      sendfn (:sendfn @(pluginC/get-plugin-state))
+      channel (:channel @(pluginC/get-plugin-state))
+      id (:id @(pluginC/get-plugin-state))]
+
+  (sendfn {:id id
+           :message {:stefon.domain.schema {:parameters nil}}}))
+
+
+#_(deftest basic-crud
 
   (testing "create"
 
@@ -33,17 +46,17 @@
           channel (:channel @(pluginC/get-plugin-state))
           id (:id @(pluginC/get-plugin-state))]
 
-      (def tchan (chan))
-      (println "3 .. " (go (>! channel {:fu :bar})))
-      (go (def msg (<! channel))
+      (def tchan (async/chan))
+
+      (async/go (def msg (async/<! tchan))
           (println "4 .. " msg))
-      (kernel/generate-system)
+      (println "3 .. " (async/go (async/>! tchan {:fu :bar})))
 
-      #_(go (let [msg (<! channel)]
-            (println ">> testing 123 > " msg)))
+      #_(async/go (let [msg (async/<! channel)]
+                  (println ">> testing 123 > " msg)))
 
-      #_(go (>! channel {:id "asdf"
-                       :message {:stefon.domain.schema {:parameters nil}}}))
+      #_(async/go (async/>! channel {:id "asdf"
+                                   :message {:stefon.domain.schema {:parameters nil}}}))
 
       ;; ... TODO - easy send / receive workflow
       #_(sendfn {:id id
