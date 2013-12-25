@@ -1,5 +1,6 @@
 (ns stefon-compojure.plugin
-  (:require [stefon-compojure.config :as config]))
+  (:require [clojure.core.async :as async :refer :all]
+            [stefon-compojure.config :as config]))
 
 
 (defn generic-handler [env message]
@@ -14,15 +15,16 @@
   ([]
      (plugin :dev))
   ([env]
-     (partial generic-handler env)))
+     (fn [msg] ">> test-handler > " msg)
+     #_(partial generic-handler env)))
 
 (defn plugin-ack
   "We're going to expect an acknowledgement with the following keys:
    '(:id :sendfn :recievefn :channel)"
   ([result-map]
-
-     (println "... plugin-ack: " result-map)
      (plugin-ack result-map (config/get-config)))
 
   ([result-map config]
-     (swap! (get-plugin-state) (fn [inp] (merge inp result-map)))))
+
+     (swap! (get-plugin-state) (fn [inp]
+                                 (clojure.core/merge inp result-map)))))

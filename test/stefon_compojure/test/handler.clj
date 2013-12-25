@@ -1,4 +1,4 @@
-(ns stefon-compojure.test.handler
+:(ns stefon-compojure.test.handler
   (:use clojure.test
         ring.mock.request
         stefon-compojure.handler

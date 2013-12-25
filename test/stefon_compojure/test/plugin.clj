@@ -1,6 +1,7 @@
 (ns stefon-compojure.test.plugin
 
   (:require [clojure.test :refer :all]
+            [clojure.core.async :as async :refer :all]
             [ring.mock.request :refer :all]
             [midje.sweet :refer :all]
 
@@ -8,7 +9,7 @@
             [stefon.shell :as shell]))
 
 
-(deftest plugin-stefon
+#_(deftest plugin-stefon
 
   (testing "plugging into stefon plugin framework"
 
@@ -31,11 +32,24 @@
           channel (:channel @(pluginC/get-plugin-state))
           id (:id @(pluginC/get-plugin-state)) ]
 
+      (println "?? " @(pluginC/get-plugin-state))
+      #_(println "3 .. " (go (>! channel {:fu :bar})))
+      #_(go (def msg (<! channel))
+          (println "4 .. " msg))
+
+      #_(go (loop [msg (<! channel)]
+
+            (println ">> testing 123 > " msg)
+            (recur (<! channel))))
+
+      #_(go (>! channel {:id id
+                       :message {:stefon.domain.schema {:parameters nil}}}))
+
       ;; ... TODO - easy send / receive workflow
-      (sendfn {:id id
+      #_(sendfn {:id id
                :message {:stefon.domain.schema {:parameters nil}}}))))
 
-(deftest basic-routes
+#_(deftest basic-routes
   (testing "route:create"))
 
 
