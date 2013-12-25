@@ -22,18 +22,6 @@
            (sort (keys @(pluginC/get-plugin-state)))))))
 
 
-(let [x (shell/stop-system)
-      x (shell/start-system)
-      x (shell/load-plugin 'stefon-compojure.plugin)
-
-      sendfn (:sendfn @(pluginC/get-plugin-state))
-      channel (:channel @(pluginC/get-plugin-state))
-      id (:id @(pluginC/get-plugin-state))]
-
-  (sendfn {:id id
-           :message {:stefon.domain.schema {:parameters nil}}}))
-
-
 #_(deftest basic-crud
 
   (testing "create"
