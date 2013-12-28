@@ -34,18 +34,6 @@
           channel (:channel @(pluginC/get-plugin-state))
           id (:id @(pluginC/get-plugin-state))]
 
-      (def tchan (async/chan))
-
-      (async/go (def msg (async/<! tchan))
-          (println "4 .. " msg))
-      (println "3 .. " (async/go (async/>! tchan {:fu :bar})))
-
-      #_(async/go (let [msg (async/<! channel)]
-                  (println ">> testing 123 > " msg)))
-
-      #_(async/go (async/>! channel {:id "asdf"
-                                   :message {:stefon.domain.schema {:parameters nil}}}))
-
       ;; ... TODO - easy send / receive workflow
       #_(sendfn {:id id
                :message {:stefon.domain.schema {:parameters nil}}}))))

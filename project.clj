@@ -14,6 +14,6 @@
   :ring {:handler stefon-compojure.handler/app}
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]
                                   [midje "1.5.1"] ]
-                   :plugins [[com.cemerick/austin "0.1.3"]]}}
+                   }}
 
   :eval-in-leiningen true)

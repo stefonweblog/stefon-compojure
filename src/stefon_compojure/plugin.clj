@@ -15,7 +15,8 @@
   ([]
      (plugin :dev))
   ([env]
-     (clojure.core/partial generic-handler env)))
+     (clojure.core/partial generic-handler env)
+     #_generic-handler))
 
 (defn plugin-ack
   "We're going to expect an acknowledgement with the following keys:
