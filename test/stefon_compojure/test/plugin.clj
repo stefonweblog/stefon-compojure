@@ -10,7 +10,7 @@
             [stefon.shell.plugin :as plugin]))
 
 
-#_(deftest plugin-stefon
+(deftest plugin-stefon
 
   (testing "plugging into stefon plugin framework"
 
@@ -22,7 +22,7 @@
            (sort (keys @(pluginC/get-plugin-state)))))))
 
 
-#_(deftest basic-crud
+(deftest basic-crud
 
   (testing "create"
 
@@ -35,8 +35,9 @@
           id (:id @(pluginC/get-plugin-state))]
 
       ;; ... TODO - easy send / receive workflow
-      #_(sendfn {:id id
+      (sendfn {:id id
                :message {:stefon.domain.schema {:parameters nil}}}))))
+
 
 #_(deftest basic-routes
   (testing "route:create"))
