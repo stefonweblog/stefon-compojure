@@ -1,10 +1,9 @@
 (defproject stefon-compojure "0.1.0-SNAPSHOT"
   :description "Compujure plugin for the Stefon Weblog system"
   :url "https://github.com/stefonweblog/stefon-compojure"
-
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojurescript "0.0-2138"]
-                 [compojure "1.1.5"]
+                 [compojure "1.1.6"]
 
                  ;; TODO - deleteme; checkout lib dependencies
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
@@ -17,12 +16,9 @@
                                   [midje "1.5.1"] ]
                    :plugins [[lein-cljsbuild "1.0.1"]
                              [com.cemerick/austin "0.1.3"]]}}
-
-  :cljsbuild {
-              :builds [{:source-paths ["public/templ/cljs"]
+  :cljsbuild {:builds [{:source-paths ["public/templ/cljs"]
                         :compiler {
                                    :output-to "public/include/js/stefon-compojure.js"
-                                   ;; :optimizations :whitespace
+                                   :optimizations :simple
                                    :pretty-print true}}]}
-
   :eval-in-leiningen true)

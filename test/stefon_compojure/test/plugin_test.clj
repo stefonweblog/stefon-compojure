@@ -1,4 +1,4 @@
-(ns stefon-compojure.test.plugin
+(ns stefon-compojure.test.plugin-test
   (:require [clojure.test :refer :all]
             [clojure.core.async :as async]
             [ring.mock.request :refer :all]
