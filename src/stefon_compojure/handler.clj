@@ -6,7 +6,7 @@
 
 (defroutes app-routes
 
-  ;; TODO - common HTTP handling
+
   (GET "/helloworld" [:as req]
        (common/handle-hello-world req))
 

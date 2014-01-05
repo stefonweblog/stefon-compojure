@@ -34,9 +34,7 @@
           channel (:channel @(pluginC/get-plugin-state))
           id (:id @(pluginC/get-plugin-state))]
 
-      ;; ... TODO - easy send / receive workflow
-      (sendfn {:id id
-               :message {:stefon.domain.schema {:parameters nil}}}))))
+      (sendfn {:id id :message {:stefon.domain.schema {:parameters nil}}}))))
 
 
 #_(deftest basic-routes
