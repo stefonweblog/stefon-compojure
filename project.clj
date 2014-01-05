@@ -9,15 +9,18 @@
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [prismatic/schema "0.1.3"]
                  [cljs-uuid "0.0.4"]]
+  :source-paths ["src/clj"]
+  :test-paths ["test/clj"]
   :plugins [[lein-ring "0.8.5"]
             [ring/ring-jetty-adapter "1.2.0"]]
   :ring {:handler stefon-compojure.handler/app}
-  :profiles {:dev {:dependencies [[ring-mock "0.1.5"]
+  :profiles {:dev {:dependencies [[com.cemerick/clojurescript.test "0.2.1"]
+                                  [ring-mock "0.1.5"]
                                   [midje "1.5.1"] ]
                    :plugins [[lein-cljsbuild "1.0.1"]
                              [com.cemerick/austin "0.1.3"]]}}
-  :cljsbuild {:builds [{:source-paths ["public/templ/cljs"]
-                        :compiler {
+  :cljsbuild {:builds [{:source-paths ["src/cljs"]
+                        :compiler {:output-dir "public/include/js"
                                    :output-to "public/include/js/stefon-compojure.js"
                                    :optimizations :simple
                                    :pretty-print true}}]}
