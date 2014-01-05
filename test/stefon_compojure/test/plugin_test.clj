@@ -18,7 +18,7 @@
     (shell/start-system)
     (shell/load-plugin 'stefon-compojure.plugin)
     (is (not (empty? @(pluginC/get-plugin-state))))
-    (is (= (sort '(:id :sendfn :recievefn :channel))
+    (is (= (sort '(:id :sendfn :receivefn :channel))
            (sort (keys @(pluginC/get-plugin-state)))))))
 
 
