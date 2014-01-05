@@ -27,7 +27,7 @@
 
 
   ;; ===> POST
-  (testing "Create Post"
+  #_(testing "Create Post"
 
     (let [response (ch/app (r/request :put "/post" request-body))]
       (is (= (:status response) 200))

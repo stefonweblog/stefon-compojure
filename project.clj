@@ -12,16 +12,21 @@
   :source-paths ["src/clj"]
   :test-paths ["test/clj"]
   :plugins [[lein-ring "0.8.5"]
-            [ring/ring-jetty-adapter "1.2.0"]]
+            [ring/ring-jetty-adapter "1.2.0"]
+            [com.cemerick/clojurescript.test "0.2.1"]]
   :ring {:handler stefon-compojure.handler/app}
   :profiles {:dev {:dependencies [[com.cemerick/clojurescript.test "0.2.1"]
                                   [ring-mock "0.1.5"]
-                                  [midje "1.5.1"] ]
+                                  [midje "1.5.1"]]
                    :plugins [[lein-cljsbuild "1.0.1"]
                              [com.cemerick/austin "0.1.3"]]}}
-  :cljsbuild {:builds [{:source-paths ["src/cljs"]
+  :cljsbuild {:builds [{:source-paths ["src/cljs" "test/cljs"]
                         :compiler {:output-dir "public/include/js"
-                                   :output-to "public/include/js/stefon-compojure.js"
+                                   :output-to "public/include/js/stefon_compojure.js"
                                    :optimizations :simple
-                                   :pretty-print true}}]}
+                                   :pretty-print true}}]
+              :test-commands {"unit-tests" ["phantomjs" :runner
+                                            "window.literal_js_was_evaluated=true"
+                                            "public/include/js/stefon_compojure_test.js"]}
+              }
   :eval-in-leiningen true)

@@ -1,4 +1,4 @@
 (ns stefon-compojure)
 
-(+ 1 2)
+(defn fubar [] "fubar")
 
