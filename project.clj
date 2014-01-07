@@ -8,7 +8,13 @@
                  ;; TODO - deleteme; checkout lib dependencies
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [prismatic/schema "0.1.3"]
-                 [cljs-uuid "0.0.4"]]
+                 [cljs-uuid "0.0.4"]
+
+
+                 ;; TODO - soon to be needed libs; use 'checkouts' in the interim
+                 #_[stefon "0.1.1-SNAPSHOT"]
+                 #_[stefon-webui-common "0.1.0-SNAPSHOT"]
+                 #_[responsive-baseline "0.1.0-SNAPSHOT"]]
   :source-paths ["src/clj"]
   :test-paths ["test/clj"]
   :plugins [[lein-ring "0.8.5"]
@@ -27,6 +33,5 @@
                                    :pretty-print true}}]
               :test-commands {"unit-tests" ["phantomjs" :runner
                                             "window.literal_js_was_evaluated=true"
-                                            "public/include/js/stefon_compojure_test.js"]}
-              }
+                                            "public/include/js/stefon_compojure_test.js"]}}
   :eval-in-leiningen true)
