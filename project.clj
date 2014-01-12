@@ -33,5 +33,4 @@
                                    :pretty-print true}}]
               :test-commands {"unit-tests" ["phantomjs" :runner
                                             "window.literal_js_was_evaluated=true"
-                                            "public/include/js/stefon_compojure_test.js"]}}
-  :eval-in-leiningen true)
+                                            "public/include/js/stefon_compojure.js"]}})

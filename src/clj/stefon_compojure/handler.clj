@@ -6,7 +6,6 @@
 
 (defroutes app-routes
 
-
   (GET "/helloworld" [:as req]
        (common/handle-hello-world req))
 
