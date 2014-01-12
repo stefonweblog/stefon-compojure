@@ -1,6 +1,6 @@
 (ns stefon-compojure-test
   (:require [cemerick.cljs.test :as t]
-            [stefon-compojure :as s]))
+            [stefon-compojure.service :as cs]))
 
 #_(deftest somewhat-less-wat
   (is (= "{}[]" (+ {} []))))
