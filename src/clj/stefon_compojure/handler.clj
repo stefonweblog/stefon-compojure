@@ -4,6 +4,8 @@
             [compojure.route :as route]
             [stefon-webui-common.core :as common]))
 
+(require '[clojure.pprint :refer :all])
+
 (defroutes app-routes
 
   (GET "/helloworld" [:as req]
@@ -13,8 +15,17 @@
   ;; load resources from the responsive-baseline project
   ;; ex: (-> "public/apple-touch-icon.png" io/resource)
 
+
   ;; ===> POST
-  (PUT "/post" [:as req] "put post")
+  (PUT "/post" [:as req]
+       (pprint req)
+       #_{:id id :message {:stefon.post.create {:parameters {:title "Latest In Biotech"
+                                                           :content "Lorem ipsum."
+                                                           :content-type "txt"
+                                                           ;;:created-date date-one
+                                                           ;;:modified-date date-one
+                                                           :assets []
+                                                           :tags []}}}})
   (GET "/post" [:as req] "get post")
   (POST "/post" [:as req] "post post")
   (DELETE "/post" [:as req] "delete post")

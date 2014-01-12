@@ -1,22 +1,21 @@
 (ns stefon-compojure.plugin
   (:require [clojure.core.async :as async]
-            [stefon-compojure.config :as config]))
+            [stefon-compojure.config :as config]
+            [taoensso.timbre :as timbre]))
 
 
 (defn generic-handler [env system-atom message]
-  (println ">> generic-handler CALLED > system-atom[" system-atom "] > message[" message "]"))
+  (timbre/debug "system-atom[" system-atom "] > message[" message "]"))
 
 
 (def ^:dynamic *plugin-state* (atom {}))
 (defn get-plugin-state [] *plugin-state*)
 
-
 (defn plugin
-  ([]
-     (plugin :dev))
+  ([] (plugin :dev))
   ([env]
-     (clojure.core/partial generic-handler env)
-     #_generic-handler))
+     (timbre/debug "Testing Timbre")
+     (clojure.core/partial generic-handler env)))
 
 (defn plugin-ack
   "We're going to expect an acknowledgement with the following keys:
@@ -25,6 +24,5 @@
      (plugin-ack result-map (config/get-config)))
 
   ([result-map config]
-
      (swap! (get-plugin-state) (fn [inp]
                                  (clojure.core/merge inp result-map)))))

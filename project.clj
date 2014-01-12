@@ -4,6 +4,8 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojurescript "0.0-2138"]
                  [compojure "1.1.6"]
+                 [ring/ring-jetty-adapter "1.2.1"]
+                 [com.taoensso/timbre "3.0.0-RC4"]
 
                  ;; TODO - deleteme; checkout lib dependencies
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
