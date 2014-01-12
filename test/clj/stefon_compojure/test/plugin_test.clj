@@ -3,6 +3,7 @@
             [clojure.core.async :as async]
             [ring.mock.request :refer :all]
             [midje.sweet :refer :all]
+            [taoensso.timbre :as timbre]
 
             [stefon-compojure.plugin :as pluginC]
             [stefon.shell :as shell]
@@ -22,9 +23,9 @@
            (sort (keys @(pluginC/get-plugin-state)))))))
 
 
-(deftest basic-crud
+#_(deftest basic-crud
 
-  (testing "create"
+  (testing "basic crud operations"
 
     (let [x (shell/stop-system)
           x (shell/start-system)
@@ -36,6 +37,15 @@
 
       (sendfn {:id id :message {:stefon.domain.schema {:parameters nil}}}))))
 
+(let [x (shell/stop-system)
+          x (shell/start-system)
+          x (shell/load-plugin 'stefon-compojure.plugin)
+
+          sendfn (:sendfn @(pluginC/get-plugin-state))
+          channel (:channel @(pluginC/get-plugin-state))
+          id (:id @(pluginC/get-plugin-state))]
+
+      (sendfn {:id id :message {:stefon.domain.schema {:parameters nil}}}))
 
 #_(deftest basic-routes
   (testing "route:create"))
