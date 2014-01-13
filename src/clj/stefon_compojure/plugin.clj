@@ -4,13 +4,29 @@
             [taoensso.timbre :as timbre]))
 
 
-(defn generic-handler [env system-atom message]
-  (timbre/info "stefon-compojure.plugin/generic-handler CALLED > system-atom[" system-atom
-                "] > message[" message "]"))
-
-
-(def ^:dynamic *plugin-state* (atom {}))
+(def ^:dynamic *plugin-state* (atom { :dispatch-channel (async/chan) }))
 (defn get-plugin-state [] *plugin-state*)
+
+
+(defn generic-handler [env system-atom message]
+
+  (timbre/info "stefon-compojure.plugin/generic-handler CALLED > system-atom[" system-atom
+               "] > message[" message "]")
+
+  (let [dispatch-channel (-> @(get-plugin-state) :dispatch-channel)]
+    (async/go (async/>! dispatch-channel message))))
+
+
+(defn pair [message]
+
+  (let [sendfn (:sendfn @(get-plugin-state))
+        dispatch-channel (-> @(get-plugin-state) :dispatch-channel)
+
+        p (promise)
+        x (async/go (deliver p (async/<! dispatch-channel)))]
+
+    (sendfn message)
+    @p))
 
 (defn plugin
   ([] (plugin :dev))
