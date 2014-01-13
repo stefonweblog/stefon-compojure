@@ -11,7 +11,7 @@
             [stefon.shell.plugin :as plugin]))
 
 
-#_(deftest plugin-stefon
+(deftest plugin-stefon
 
   (testing "plugging into stefon plugin framework"
 
@@ -23,9 +23,9 @@
            (sort (keys @(pluginC/get-plugin-state)))))))
 
 
-#_(deftest basic-crud
+(deftest basic-send
 
-  (testing "basic crud"
+  (testing "basic send"
 
     (let [x (shell/stop-system)
           x (shell/start-system)
@@ -33,22 +33,12 @@
 
           sendfn (:sendfn @(pluginC/get-plugin-state))
           channel (:channel @(pluginC/get-plugin-state))
-          id (:id @(pluginC/get-plugin-state))]
+          id (:id @(pluginC/get-plugin-state))
 
-      (async/go (sendfn {:id id :message {:stefon.domain.schema {:parameters nil}}})))))
+          result (sendfn {:id id :message {:stefon.domain.schema {:parameters nil}}})]
 
+      (is (not (nil? result))))))
 
-(let [x (shell/stop-system)
-      x (shell/start-system)
-      x (shell/load-plugin 'stefon-compojure.plugin)
-
-      sendfn (:sendfn @(pluginC/get-plugin-state))
-      channel (:channel @(pluginC/get-plugin-state))
-      id (:id @(pluginC/get-plugin-state))
-
-      result (sendfn {:id id :message {:stefon.domain.schema {:parameters nil}}})]
-
-  (is (not (nil? result))))
 
 
 #_(deftest basic-routes

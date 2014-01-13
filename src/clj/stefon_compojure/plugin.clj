@@ -5,7 +5,7 @@
 
 
 (defn generic-handler [env system-atom message]
-  (timbre/debug "stefon-compojure.plugin/generic-handler CALLED > system-atom[" system-atom
+  (timbre/info "stefon-compojure.plugin/generic-handler CALLED > system-atom[" system-atom
                 "] > message[" message "]"))
 
 
