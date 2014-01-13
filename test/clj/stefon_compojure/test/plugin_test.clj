@@ -19,7 +19,7 @@
     (shell/start-system)
     (shell/load-plugin 'stefon-compojure.plugin)
     (is (not (empty? @(pluginC/get-plugin-state))))
-    (is (= (sort '(:id :sendfn :receivefn :channel))
+    (is (= (sort '(:id :dispatch-channel :sendfn :receivefn :channel))
            (sort (keys @(pluginC/get-plugin-state)))))))
 
 
@@ -39,10 +39,6 @@
 
       (is (not (nil? result))))))
 
-
-
-#_(deftest basic-routes
-  (testing "route:create"))
 
 
 ;; TODO - hookup austin

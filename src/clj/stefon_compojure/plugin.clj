@@ -8,7 +8,9 @@
 (defn get-plugin-state [] *plugin-state*)
 
 
-(defn generic-handler [env system-atom message]
+(defn generic-handler
+  "Default mechanism for receiving message responses from the kernel. Logs and sends responses to a dispatch channel"
+  [env system-atom message]
 
   (timbre/info "stefon-compojure.plugin/generic-handler CALLED > system-atom[" system-atom
                "] > message[" message "]")
@@ -17,7 +19,9 @@
     (async/go (async/>! dispatch-channel message))))
 
 
-(defn pair [message]
+(defn pair
+  "Binds an input message, to the asynchronous response from the kernel"
+  [message]
 
   (let [sendfn (:sendfn @(get-plugin-state))
         dispatch-channel (-> @(get-plugin-state) :dispatch-channel)
@@ -29,6 +33,7 @@
     @p))
 
 (defn plugin
+  "First step in plugin handshake. Kernel calls this function, and we should return our listener that accepts two function parameters: system-atom, message"
   ([] (plugin :dev))
   ([env]
      (clojure.core/partial generic-handler env)))
