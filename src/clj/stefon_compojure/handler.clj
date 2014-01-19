@@ -2,6 +2,9 @@
   (:use compojure.core)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
+            [taoensso.timbre :as timbre]
+
+            [stefon-compojure.core :as core]
             [stefon-webui-common.core :as common]))
 
 (require '[clojure.pprint :refer :all])
@@ -18,14 +21,18 @@
 
   ;; ===> POST
   (PUT "/post" [:as req]
-       (pprint req)
-       #_{:id id :message {:stefon.post.create {:parameters {:title "Latest In Biotech"
-                                                           :content "Lorem ipsum."
-                                                           :content-type "txt"
-                                                           ;;:created-date date-one
-                                                           ;;:modified-date date-one
-                                                           :assets []
-                                                           :tags []}}}})
+       (let [pinputs (:params req)
+             sdformat (java.text.SimpleDateFormat. "MM/DD/yyyy")
+             cd (.parse sdformat (:created-date pinputs))
+             md (.parse sdformat (:modified-date pinputs))
+
+             finputs (assoc pinputs :created-date cd :modified-date md)
+             finputs (if-not (:assets finputs) (assoc finputs :assets []))
+             finputs (if-not (:tags finputs) (assoc finputs :tags []))]
+
+         (timbre/warn finputs)
+         (core/create-post finputs)))
+
   (GET "/post" [:as req] "get post")
   (POST "/post" [:as req] "post post")
   (DELETE "/post" [:as req] "delete post")

@@ -1,7 +1,9 @@
 (ns stefon-compojure.test.handler-test
   (:require [clojure.test :refer :all]
+            [stefon.shell :as shell]
             [stefon-compojure.handler :as ch]
-            [ring.mock.request :as r]))
+            [ring.mock.request :as r]
+            [taoensso.timbre :as timbre]))
 
 
 (def request-body {:title "Latest In Biotech"
@@ -14,22 +16,29 @@
 
 (deftest test-app
 
-  (testing "main route"
+  #_(testing "main route"
 
     (let [response (ch/app (r/request :get "/helloworld"))]
       (is (= (:status response) 200))
       (is (= (:body response) "Hello World"))))
 
-  (testing "not-found route"
+  #_(testing "not-found route"
 
     (let [response (ch/app (r/request :get "/invalid"))]
       (is (= (:status response) 404))))
 
 
   ;; ===> POST
-  #_(testing "Create Post"
+  (testing "Create Post"
 
-    (let [response (ch/app (r/request :put "/post" request-body))]
+    (let [x (shell/stop-system)
+          x (shell/start-system)
+          x (shell/load-plugin 'stefon-compojure.plugin)
+
+          x (timbre/set-level! :debug)
+          response (ch/app (r/request :put "/post" request-body))]
+
+      (timbre/debug response)
       (is (= (:status response) 200))
       (is (= (:body response) request-body))))
 
