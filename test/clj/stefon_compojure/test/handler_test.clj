@@ -16,13 +16,13 @@
 
 (deftest test-app
 
-  #_(testing "main route"
+  (testing "main route"
 
     (let [response (ch/app (r/request :get "/helloworld"))]
       (is (= (:status response) 200))
       (is (= (:body response) "Hello World"))))
 
-  #_(testing "not-found route"
+  (testing "not-found route"
 
     (let [response (ch/app (r/request :get "/invalid"))]
       (is (= (:status response) 404))))
@@ -34,13 +34,20 @@
     (let [x (shell/stop-system)
           x (shell/start-system)
           x (shell/load-plugin 'stefon-compojure.plugin)
+          test-date (-> (java.text.SimpleDateFormat. "MM/DD/yyyy") (.parse "09/01/2013"))
 
-          x (timbre/set-level! :debug)
           response (ch/app (r/request :put "/post" request-body))]
 
-      (timbre/debug response)
+      (is (= stefon.domain.Post (type (:result response))))
       (is (= (:status response) 200))
-      (is (= (:body response) request-body))))
+
+      (is (= (-> response :result :title) "Latest In Biotech"))
+      (is (= (-> response :result :content) "Lorem ipsum."))
+      (is (= (-> response :result :content-type) "txt"))
+      (is (= (-> response :result :created-date) test-date))
+      (is (= (-> response :result :modified-date) test-date))
+      (is (= (-> response :result :assets) []))
+      (is (= (-> response :result :tags) []))))
 
   #_(testing "Retrieve Post"
 

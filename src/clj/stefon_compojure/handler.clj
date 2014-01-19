@@ -30,7 +30,6 @@
              finputs (if-not (:assets finputs) (assoc finputs :assets []))
              finputs (if-not (:tags finputs) (assoc finputs :tags []))]
 
-         (timbre/warn finputs)
          (core/create-post finputs)))
 
   (GET "/post" [:as req] "get post")
