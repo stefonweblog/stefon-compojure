@@ -48,7 +48,10 @@
 
          (core/update-post finputs)))
 
-  (DELETE "/post" [:as req] "delete post")
+  (DELETE "/post" [:as req]
+
+          (core/delete-post (:params req)))
+
   (GET "/posts" [:as req] "get posts")
 
   ;; ===> ASSET

@@ -18,3 +18,8 @@
 
     (plugin/pair {:id (:id @(plugin/get-plugin-state))
                   :message {:stefon.post.update {:parameters {:id pid :update-map update-map}}}})))
+
+(defn delete-post [input]
+
+  (plugin/pair {:id (:id @(plugin/get-plugin-state))
+                :message {:stefon.post.delete {:parameters input}}}))

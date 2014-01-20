@@ -89,19 +89,23 @@
         (is (= (:status u2) 200))
         (is (= (-> u2 :result :content) new-content)))))
 
-  #_(testing "Delete Post"
+  (testing "Delete Post"
 
-    (let [r1 (ch/app (r/request :put "/post" request-body))
-          r2 (ch/app (r/request :get "/post" {:id (:id r1)}))]
+    (let [x (shell/stop-system)
+          x (shell/start-system)
+          x (shell/load-plugin 'stefon-compojure.plugin)
+
+          r1 (ch/app (r/request :put "/post" request-body))
+          r2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
 
       (is (= (:status r1) 200))
-      (is (= (:body r2) (:body r1)))
+      (is (= (:status r2) 200))
 
-      (let [u1 (ch/app (r/request :delete "/post" {:id (-> r2 :body :id)}))
-            u2 (ch/app (r/request :get "/post" {:id (-> r2 :body :id)}))]
+      (let [u1 (ch/app (r/request :delete "/post" {:id (-> r1 :result :id)}))
+            u2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
 
         (is (= (:status u2) 200))
-        (is (= (-> u2 :body) nil)))))
+        (is (empty? (:result u2))))))
 
   #_(testing "List Posts"
 
