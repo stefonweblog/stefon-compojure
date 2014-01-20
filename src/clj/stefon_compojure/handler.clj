@@ -23,12 +23,15 @@
   (PUT "/post" [:as req]
        (let [pinputs (:params req)
              sdformat (java.text.SimpleDateFormat. "MM/DD/yyyy")
-             cd (.parse sdformat (:created-date pinputs))
-             md (.parse sdformat (:modified-date pinputs))
 
-             finputs (assoc pinputs :created-date cd :modified-date md)
-             finputs (if-not (:assets finputs) (assoc finputs :assets []))
-             finputs (if-not (:tags finputs) (assoc finputs :tags []))]
+             ;; enforce key / value ordering
+             finputs {:title (:title pinputs)
+                      :content (:content pinputs)
+                      :content-type (:content-type pinputs)
+                      :created-date (.parse sdformat (:created-date pinputs))
+                      :modified-date (.parse sdformat (:modified-date pinputs))
+                      :assets (if (:assets pinputs) (:assets pinputs) [])
+                      :tags (if (:tags pinputs) (:tags pinputs) [])}]
 
          (core/create-post finputs)))
 

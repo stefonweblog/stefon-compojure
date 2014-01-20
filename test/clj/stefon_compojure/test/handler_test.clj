@@ -8,14 +8,13 @@
 
 (require '[clojure.pprint :refer :all])
 
-(def request-body {:tags []
-                   :assets []
-                   :modified-date "09/01/2013"
-                   :created-date "09/01/2013"
+(def request-body {:title "Latest In Biotech"
+                   :content "Lorem ipsum"
                    :content-type "txt"
-                   :title "Latest In Biotech"
-                   :content "Lorem ipsum."
-                   })
+                   :created-date "09/01/2013"
+                   :modified-date "09/01/2013"
+                   :assets []
+                   :tags []})
 
 (deftest test-app
 
@@ -45,7 +44,7 @@
       (is (= (:status response) 200))
 
       (is (= (-> response :result :title) "Latest In Biotech"))
-      (is (= (-> response :result :content) "Lorem ipsum."))
+      (is (= (-> response :result :content) "Lorem ipsum"))
       (is (= (-> response :result :content-type) "txt"))
       (is (= (-> response :result :created-date) test-date))
       (is (= (-> response :result :modified-date) test-date))
@@ -64,7 +63,7 @@
 
       (is (= (:status r2) 200))
       (is (= (-> r2 :result :title) "Latest In Biotech"))
-      (is (= (-> r2 :result :content) "Lorem ipsum."))
+      (is (= (-> r2 :result :content) "Lorem ipsum"))
       (is (= (-> r2 :result :content-type) "txt"))
       (is (= (-> r2 :result :created-date) test-date))
       (is (= (-> r2 :result :modified-date) test-date))
