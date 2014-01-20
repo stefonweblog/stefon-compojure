@@ -13773,6 +13773,10 @@ cljs.core.special_symbol_QMARK_ = function(a) {
   "recur", "recur", -1532142362, null), null, new cljs.core.Symbol(null, ".", ".", -1640531481, null), null, new cljs.core.Symbol(null, "ns", "ns", -1640528002, null), null, new cljs.core.Symbol(null, "do", "do", -1640528316, null), null, new cljs.core.Symbol(null, "fn*", "fn*", -1640430053, null), null, new cljs.core.Symbol(null, "throw", "throw", -1530191713, null), null, new cljs.core.Symbol(null, "letfn*", "letfn*", 1548249632, null), null, new cljs.core.Symbol(null, "js*", "js*", -1640426054, 
   null), null, new cljs.core.Symbol(null, "defrecord*", "defrecord*", 774272013, null), null, new cljs.core.Symbol(null, "let*", "let*", -1637213400, null), null, new cljs.core.Symbol(null, "loop*", "loop*", -1537374273, null), null, new cljs.core.Symbol(null, "try", "try", -1640416396, null), null, new cljs.core.Symbol(null, "if", "if", -1640528170, null), null, new cljs.core.Symbol(null, "def", "def", -1640432194, null), null], null), null), a);
 };
+var stefon_compojure = {service:{}};
+stefon_compojure.service.fubar = function() {
+  return "fubar";
+};
 var clojure = {string:{}};
 clojure.string.seq_reverse = function(a) {
   return cljs.core.reduce.call(null, cljs.core.conj, cljs.core.List.EMPTY, a);
@@ -14209,8 +14213,25 @@ cemerick.cljs.test.set_print_fn_BANG_ = function(a) {
   return cljs.core._STAR_print_fn_STAR_ = a;
 };
 goog.exportSymbol("cemerick.cljs.test.set_print_fn_BANG_", cemerick.cljs.test.set_print_fn_BANG_);
-var stefon_compojure = {fubar:function() {
-  return "fubar";
+var stefon_compojure_test = {service:function() {
+  return cemerick.cljs.test.test_function.call(null, stefon_compojure_test.service);
 }};
-var stefon_compojure_test = {};
-stefon_compojure_test.deftest.call(null, stefon_compojure_test.thing, stefon_compojure_test.is.call(null, !0));
+stefon_compojure_test.service = cljs.core.vary_meta.call(null, stefon_compojure_test.service, cljs.core.assoc, new cljs.core.Keyword(null, "name", "name", 1017277949), new cljs.core.Symbol(null, "service", "service", 343621742, null), new cljs.core.Keyword(null, "test", "test", 1017460740), function() {
+  try {
+    var a = cljs.core._conj.call(null, cljs.core._conj.call(null, cljs.core.List.EMPTY, "fubar"), stefon_compojure.service.fubar.call(null)), b = cljs.core.apply.call(null, cljs.core._EQ_, a);
+    cljs.core.truth_(b) ? cemerick.cljs.test.do_report.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "actual", "actual", 3885931776), cljs.core.cons.call(null, cljs.core._EQ_, a), new cljs.core.Keyword(null, "type", "type", 1017479852), new cljs.core.Keyword(null, "pass", "pass", 1017337731), new cljs.core.Keyword(null, "message", "message", 1968829305), null, new cljs.core.Keyword(null, "expected", "expected", 3373152810), cljs.core.list(new cljs.core.Symbol(null, 
+    "\x3d", "\x3d", -1640531466, null), cljs.core.list(new cljs.core.Symbol("cs", "fubar", "cs/fubar", -1542541879, null)), "fubar")], null)) : cemerick.cljs.test.do_report.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "actual", "actual", 3885931776), cljs.core._conj.call(null, cljs.core._conj.call(null, cljs.core.List.EMPTY, cljs.core.cons.call(null, new cljs.core.Symbol(null, "\x3d", "\x3d", -1640531466, null), a)), new cljs.core.Symbol(null, "not", "not", -1640422260, 
+    null)), new cljs.core.Keyword(null, "type", "type", 1017479852), new cljs.core.Keyword(null, "fail", "fail", 1017039504), new cljs.core.Keyword(null, "message", "message", 1968829305), null, new cljs.core.Keyword(null, "expected", "expected", 3373152810), cljs.core.list(new cljs.core.Symbol(null, "\x3d", "\x3d", -1640531466, null), cljs.core.list(new cljs.core.Symbol("cs", "fubar", "cs/fubar", -1542541879, null)), "fubar")], null));
+    return b;
+  } catch (c) {
+    if (c instanceof Error) {
+      return cemerick.cljs.test.do_report.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "actual", "actual", 3885931776), c, new cljs.core.Keyword(null, "type", "type", 1017479852), new cljs.core.Keyword(null, "error", "error", 1110689146), new cljs.core.Keyword(null, "message", "message", 1968829305), null, new cljs.core.Keyword(null, "expected", "expected", 3373152810), cljs.core.list(new cljs.core.Symbol(null, "\x3d", "\x3d", -1640531466, null), cljs.core.list(new cljs.core.Symbol("cs", 
+      "fubar", "cs/fubar", -1542541879, null)), "fubar")], null));
+    }
+    if (new cljs.core.Keyword(null, "else", "else", 1017020587)) {
+      throw c;
+    }
+    return null;
+  }
+});
+cemerick.cljs.test.register_test_BANG_.call(null, new cljs.core.Symbol(null, "stefon-compojure-test", "stefon-compojure-test", -1703935514, null), stefon_compojure_test.service);

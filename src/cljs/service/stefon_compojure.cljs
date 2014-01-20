@@ -1,4 +1,3 @@
-(ns service.stefon-compojure)
+(ns stefon-compojure.service)
 
 (defn fubar [] "fubar")
-
