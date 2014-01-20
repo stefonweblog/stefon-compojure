@@ -6,6 +6,7 @@
                  [compojure "1.1.6"]
                  [ring/ring-jetty-adapter "1.2.1"]
                  [com.taoensso/timbre "3.0.0-RC4"]
+                 [cljs-ajax "0.2.3"]
 
                  ;; TODO - deleteme; checkout lib dependencies
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
