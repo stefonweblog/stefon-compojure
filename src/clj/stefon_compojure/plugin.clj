@@ -19,6 +19,7 @@
     (async/go (async/>! dispatch-channel message))))
 
 
+;; TODO plugin/pair function is mixing up requests; untagle in order to run all tests concurrently
 (defn pair
   "Binds an input message, to the asynchronous response from the kernel"
   [message]
