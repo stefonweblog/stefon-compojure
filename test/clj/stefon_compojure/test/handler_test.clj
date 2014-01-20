@@ -6,6 +6,8 @@
             [taoensso.timbre :as timbre]))
 
 
+(require '[clojure.pprint :refer :all])
+
 (def request-body {:title "Latest In Biotech"
                    :content "Lorem ipsum."
                    :content-type "txt"
@@ -49,12 +51,24 @@
       (is (= (-> response :result :assets) []))
       (is (= (-> response :result :tags) []))))
 
-  #_(testing "Retrieve Post"
+  (testing "Retrieve Post"
 
-    (let [r1 (ch/app (r/request :put "/post" request-body))
-          r2 (ch/app (r/request :get "/post" {:id (:id r1)}))]
-      (is (= (:status r1) 200))
-      (is (= (:body r2) (:body r1)))))
+    (let [x (shell/stop-system)
+          x (shell/start-system)
+          x (shell/load-plugin 'stefon-compojure.plugin)
+          test-date (-> (java.text.SimpleDateFormat. "MM/DD/yyyy") (.parse "09/01/2013"))
+
+          r1 (ch/app (r/request :put "/post" request-body))
+          r2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
+
+      (is (= (:status r2) 200))
+      (is (= (-> r2 :result :title) "Latest In Biotech"))
+      (is (= (-> r2 :result :content) "Lorem ipsum."))
+      (is (= (-> r2 :result :content-type) "txt"))
+      (is (= (-> r2 :result :created-date) test-date))
+      (is (= (-> r2 :result :modified-date) test-date))
+      (is (= (-> r2 :result :assets) []))
+      (is (= (-> r2 :result :tags) []))))
 
   #_(testing "Update Post"
 

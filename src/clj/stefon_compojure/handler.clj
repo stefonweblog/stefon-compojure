@@ -32,7 +32,10 @@
 
          (core/create-post finputs)))
 
-  (GET "/post" [:as req] "get post")
+  (GET "/post" [:as req]
+       (pprint req)
+       (core/retrieve-post (:params req)))
+
   (POST "/post" [:as req] "post post")
   (DELETE "/post" [:as req] "delete post")
   (GET "/posts" [:as req] "get posts")
