@@ -10,3 +10,11 @@
 
   (plugin/pair {:id (:id @(plugin/get-plugin-state))
                 :message {:stefon.post.retrieve {:parameters input}}}))
+
+(defn update-post [input]
+
+  (let [pid (:id input)
+        update-map (dissoc input :id)]
+
+    (plugin/pair {:id (:id @(plugin/get-plugin-state))
+                  :message {:stefon.post.update {:parameters {:id pid :update-map update-map}}}})))

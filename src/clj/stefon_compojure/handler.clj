@@ -33,10 +33,18 @@
          (core/create-post finputs)))
 
   (GET "/post" [:as req]
-       (pprint req)
+
        (core/retrieve-post (:params req)))
 
-  (POST "/post" [:as req] "post post")
+  (POST "/post" [:as req] "post post"
+
+        (let [pinputs (:params req)
+              finputs (-> pinputs
+                          (dissoc pinputs :created-date :modified-date)
+                          (assoc :modified-date (java.util.Date.)))]
+
+         (core/update-post finputs)))
+
   (DELETE "/post" [:as req] "delete post")
   (GET "/posts" [:as req] "get posts")
 

@@ -8,30 +8,31 @@
 
 (require '[clojure.pprint :refer :all])
 
-(def request-body {:title "Latest In Biotech"
-                   :content "Lorem ipsum."
-                   :content-type "txt"
-                   :created-date "09/01/2013"
-                   :modified-date "09/01/2013"
+(def request-body {:tags []
                    :assets []
-                   :tags []})
+                   :modified-date "09/01/2013"
+                   :created-date "09/01/2013"
+                   :content-type "txt"
+                   :title "Latest In Biotech"
+                   :content "Lorem ipsum."
+                   })
 
 (deftest test-app
 
-  (testing "main route"
+  #_(testing "main route"
 
     (let [response (ch/app (r/request :get "/helloworld"))]
       (is (= (:status response) 200))
       (is (= (:body response) "Hello World"))))
 
-  (testing "not-found route"
+  #_(testing "not-found route"
 
     (let [response (ch/app (r/request :get "/invalid"))]
       (is (= (:status response) 404))))
 
 
   ;; ===> POST
-  (testing "Create Post"
+  #_(testing "Create Post"
 
     (let [x (shell/stop-system)
           x (shell/start-system)
@@ -51,7 +52,7 @@
       (is (= (-> response :result :assets) []))
       (is (= (-> response :result :tags) []))))
 
-  (testing "Retrieve Post"
+  #_(testing "Retrieve Post"
 
     (let [x (shell/stop-system)
           x (shell/start-system)
@@ -70,20 +71,25 @@
       (is (= (-> r2 :result :assets) []))
       (is (= (-> r2 :result :tags) []))))
 
-  #_(testing "Update Post"
+  (testing "Update Post"
 
-    (let [r1 (ch/app (r/request :put "/post" request-body))
-          r2 (ch/app (r/request :get "/post" {:id (:id r1)}))]
+    (let [x (shell/stop-system)
+          x (shell/start-system)
+          x (shell/load-plugin 'stefon-compojure.plugin)
 
-      (is (= (:status r1) 200))
-      (is (= (:body r2) (:body r1)))
+          r1 (ch/app (r/request :put "/post" request-body))
+          r2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
+
+      #_(is (= (:status r1) 200))
+      #_(is (= (:body r2) (:body r1)))
 
       (let [new-content "New content"
-            u1 (ch/app (r/request :update "/post" {:content new-content}))
-            u2 (ch/app (r/request :get "/post" {:id (-> u1 :body :id)}))]
+            u1 (ch/app (r/request :post "/post" {:id (-> r1 :result :id) :content new-content}))
+            u2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
 
-        (is (= (:status u2) 200))
-        (is (= (-> u2 :body :content) new-content)))))
+        (pprint u2)
+        #_(is (= (:status u2) 200))
+        #_(is (= (-> u2 :body :content) new-content)))))
 
   #_(testing "Delete Post"
 
