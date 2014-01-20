@@ -19,20 +19,20 @@
 
 (deftest test-app
 
-  #_(testing "main route"
+  (testing "main route"
 
     (let [response (ch/app (r/request :get "/helloworld"))]
       (is (= (:status response) 200))
       (is (= (:body response) "Hello World"))))
 
-  #_(testing "not-found route"
+  (testing "not-found route"
 
     (let [response (ch/app (r/request :get "/invalid"))]
       (is (= (:status response) 404))))
 
 
   ;; ===> POST
-  #_(testing "Create Post"
+  (testing "Create Post"
 
     (let [x (shell/stop-system)
           x (shell/start-system)
@@ -52,7 +52,7 @@
       (is (= (-> response :result :assets) []))
       (is (= (-> response :result :tags) []))))
 
-  #_(testing "Retrieve Post"
+  (testing "Retrieve Post"
 
     (let [x (shell/stop-system)
           x (shell/start-system)
@@ -80,16 +80,15 @@
           r1 (ch/app (r/request :put "/post" request-body))
           r2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
 
-      #_(is (= (:status r1) 200))
-      #_(is (= (:body r2) (:body r1)))
+      (is (= (:status r1) 200))
+      (is (= (:status r2) 200))
 
       (let [new-content "New content"
             u1 (ch/app (r/request :post "/post" {:id (-> r1 :result :id) :content new-content}))
             u2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
 
-        (pprint u2)
-        #_(is (= (:status u2) 200))
-        #_(is (= (-> u2 :body :content) new-content)))))
+        (is (= (:status u2) 200))
+        (is (= (-> u2 :result :content) new-content)))))
 
   #_(testing "Delete Post"
 
