@@ -16,7 +16,7 @@
                    :assets []
                    :tags []})
 
-(deftest test-app
+(deftest test-routing
 
   (testing "main route"
 
@@ -27,8 +27,9 @@
   (testing "not-found route"
 
     (let [response (ch/app (r/request :get "/invalid"))]
-      (is (= (:status response) 404))))
+      (is (= (:status response) 404)))))
 
+(deftest test-crud-posts
 
   ;; ===> POST
   (testing "Create Post"
@@ -105,12 +106,22 @@
             u2 (ch/app (r/request :get "/post" {:id (-> r1 :result :id)}))]
 
         (is (= (:status u2) 200))
-        (is (empty? (:result u2))))))
+        (is (empty? (:result u2)))))))
 
-  #_(testing "List Posts"
+(deftest test-list-posts
 
-    (let [r1 (ch/app (r/request :put "/post" request-body))
+  (testing "List Posts"
+
+    (let [x (shell/stop-system)
+          x (shell/start-system)
+          x (shell/load-plugin 'stefon-compojure.plugin)
+
+          r1 (ch/app (r/request :put "/post" request-body))
           r2 (ch/app (r/request :put "/post" request-body))
           r3 (ch/app (r/request :get "/posts"))]
+
+      (pprint r3)
+
       (is (= (:status r1) 200))
-      #_(is (= (:body r2) (:body r1))))))
+      (is (= (:status r3) 200))
+      (is (= 2 (count (:result r3)))))))

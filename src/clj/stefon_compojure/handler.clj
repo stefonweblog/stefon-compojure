@@ -36,7 +36,6 @@
          (core/create-post finputs)))
 
   (GET "/post" [:as req]
-
        (core/retrieve-post (:params req)))
 
   (POST "/post" [:as req] "post post"
@@ -49,10 +48,12 @@
          (core/update-post finputs)))
 
   (DELETE "/post" [:as req]
-
           (core/delete-post (:params req)))
 
-  (GET "/posts" [:as req] "get posts")
+  (GET "/posts" [:as req]
+
+       (core/list-posts))
+
 
   ;; ===> ASSET
   (PUT "/asset" [:as req] "put asset")

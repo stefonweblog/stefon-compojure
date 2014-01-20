@@ -23,3 +23,8 @@
 
   (plugin/pair {:id (:id @(plugin/get-plugin-state))
                 :message {:stefon.post.delete {:parameters input}}}))
+
+(defn list-posts []
+
+  (plugin/pair {:id (:id @(plugin/get-plugin-state))
+                :message {:stefon.post.list {:parameters []}}}))
