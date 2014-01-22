@@ -18548,7 +18548,7 @@ stefon_compojure.service.error_handler = function(a) {
   var b = cljs.core.seq_QMARK_.call(null, a) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a;
   a = cljs.core.get.call(null, b, new cljs.core.Keyword(null, "status-text", "status-text", 4371493274));
   b = cljs.core.get.call(null, b, new cljs.core.Keyword(null, "status", "status", 4416389988));
-  return console.log([cljs.core.str("something bad happened: "), cljs.core.str(b), cljs.core.str(" "), cljs.core.str(a)].join(""));
+  return console.log([cljs.core.str("something bad happened ["), cljs.core.str(b), cljs.core.str("] : "), cljs.core.str(a)].join(""));
 };
 stefon_compojure.service.create_post = function(a) {
   return ajax.core.PUT.call(null, "/post", new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "params", "params", 4313443576), a, new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
@@ -18557,10 +18557,10 @@ stefon_compojure.service.retrieve_post = function(a) {
   return ajax.core.GET.call(null, "/post", new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "params", "params", 4313443576), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "id", "id", 1013907597), a], null), new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
 };
 stefon_compojure.service.update_post = function(a) {
-  return stefon_compojure.service.UPDATE.call(null, "/post", new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "params", "params", 4313443576), a, new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
+  return ajax.core.POST.call(null, "/post", new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "params", "params", 4313443576), a, new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
 };
 stefon_compojure.service.delete_post = function(a) {
-  return ajax.core.DELETE.call(null, "/post", new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "params", "params", 4313443576), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "id", "id", 1013907597), "123asdf"], null), new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
+  return ajax.core.DELETE.call(null, "/post", new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "params", "params", 4313443576), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "id", "id", 1013907597), a], null), new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
 };
 stefon_compojure.service.retrieve_posts = function() {
   return ajax.core.GET.call(null, "/posts", new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "handler", "handler", 1706707644), stefon_compojure.service.handler, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), stefon_compojure.service.error_handler], null));
@@ -18858,9 +18858,12 @@ cemerick.cljs.test.set_print_fn_BANG_ = function(a) {
   return cljs.core._STAR_print_fn_STAR_ = a;
 };
 goog.exportSymbol("cemerick.cljs.test.set_print_fn_BANG_", cemerick.cljs.test.set_print_fn_BANG_);
-var stefon_compojure_test = {service:function() {
+var stefon_compojure_test = {};
+stefon_compojure_test.request_body = new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null, "title", "title", 1124275658), "Latest In Biotech", new cljs.core.Keyword(null, "content", "content", 1965434859), "Lorem ipsum", new cljs.core.Keyword(null, "content-type", "content-type", 1799574400), "txt", new cljs.core.Keyword(null, "created-date", "created-date", 2970392293), "09/01/2013", new cljs.core.Keyword(null, "modified-date", "modified-date", 3061274532), "09/01/2013", new cljs.core.Keyword(null, 
+"assets", "assets", 3900663541), cljs.core.PersistentVector.EMPTY, new cljs.core.Keyword(null, "tags", "tags", 1017456523), cljs.core.PersistentVector.EMPTY], null);
+stefon_compojure_test.service = function() {
   return cemerick.cljs.test.test_function.call(null, stefon_compojure_test.service);
-}};
+};
 stefon_compojure_test.service = cljs.core.vary_meta.call(null, stefon_compojure_test.service, cljs.core.assoc, new cljs.core.Keyword(null, "name", "name", 1017277949), new cljs.core.Symbol(null, "service", "service", 343621742, null), new cljs.core.Keyword(null, "test", "test", 1017460740), function() {
   try {
     var a = cljs.core._conj.call(null, cljs.core._conj.call(null, cljs.core.List.EMPTY, "fubar"), stefon_compojure.service.fubar.call(null)), b = cljs.core.apply.call(null, cljs.core._EQ_, a);
@@ -18880,3 +18883,10 @@ stefon_compojure_test.service = cljs.core.vary_meta.call(null, stefon_compojure_
   }
 });
 cemerick.cljs.test.register_test_BANG_.call(null, new cljs.core.Symbol(null, "stefon-compojure-test", "stefon-compojure-test", -1703935514, null), stefon_compojure_test.service);
+stefon_compojure_test.create_post = function() {
+  return cemerick.cljs.test.test_function.call(null, stefon_compojure_test.create_post);
+};
+stefon_compojure_test.create_post = cljs.core.vary_meta.call(null, stefon_compojure_test.create_post, cljs.core.assoc, new cljs.core.Keyword(null, "name", "name", 1017277949), new cljs.core.Symbol(null, "create-post", "create-post", 2114572426, null), new cljs.core.Keyword(null, "test", "test", 1017460740), function() {
+  return stefon_compojure.service.create_post.call(null, stefon_compojure_test.request_body);
+});
+cemerick.cljs.test.register_test_BANG_.call(null, new cljs.core.Symbol(null, "stefon-compojure-test", "stefon-compojure-test", -1703935514, null), stefon_compojure_test.create_post);

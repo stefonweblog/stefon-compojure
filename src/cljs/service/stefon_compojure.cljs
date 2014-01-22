@@ -8,7 +8,7 @@
 
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console
-        (str "something bad happened: " status " " status-text)))
+        (str "something bad happened [" status "] : " status-text)))
 
 
 (defn create-post [message]
@@ -27,15 +27,15 @@
 
 (defn update-post [message]
 
-  (UPDATE "/post"
-          {:params message
-           :handler handler
-           :error-handler error-handler}))
+  (POST "/post"
+        {:params message
+         :handler handler
+         :error-handler error-handler}))
 
 (defn delete-post [pid]
 
   (DELETE "/post"
-        {:params {:id    "123asdf"}
+        {:params {:id pid}
          :handler handler
          :error-handler error-handler}))
 
