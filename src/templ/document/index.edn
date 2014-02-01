@@ -1,0 +1,10 @@
+[:html
+ [:head
+  [:meta {:charset "UTF-8"}]
+  [:title "Browser-Connected REPL"]]
+ [:body
+  [:div#content
+   [:script {:type "text/javascript" :src "javascript/main.js"}]
+   [:script {:type "text/javascript" :src "js/stefon_compojure/service.js"}]
+   [:script {:type "text/javascript"}
+    "goog.require('foo');" ]]]]
