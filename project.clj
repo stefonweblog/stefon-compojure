@@ -8,6 +8,7 @@
                  [com.taoensso/timbre "3.0.0-RC4"]
                  [cljs-ajax "0.2.3"]
                  [hiccup "1.0.5"]
+                 [garden "1.1.5"]
 
                  ;; TODO - deleteme; checkout lib dependencies
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
@@ -27,7 +28,8 @@
   :ring {:handler stefon-compojure.handler/app}
   :profiles {:dev {:dependencies [[com.cemerick/clojurescript.test "0.2.1"]
                                   [ring-mock "0.1.5"]
-                                  [midje "1.5.1"]]
+                                  [midje "1.5.1"]
+                                  [alembic "0.2.0"]]
                    :plugins [[lein-cljsbuild "1.0.1"]
                              [com.cemerick/austin "0.1.4-SNAPSHOT"]]}}
   :cljsbuild {:builds [{:source-paths ["src/cljs" "test/cljs"]
