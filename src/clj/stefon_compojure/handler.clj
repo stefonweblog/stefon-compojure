@@ -15,6 +15,10 @@
   (GET "/helloworld" [:as req]
        (common/handle-hello-world req))
 
+  (GET "/" [:as req]
+       (slurp "public/index.html"))
+
+
   ;; TODO
   ;; load resources from the responsive-baseline project
   ;; ex: (-> "public/apple-touch-icon.png" io/resource)
@@ -81,4 +85,3 @@
   (defonce ^:private server
     (ring.adapter.jetty/run-jetty #'app-routes {:port 8080 :join? false}))
   server)
-
