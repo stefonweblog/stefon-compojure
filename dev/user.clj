@@ -1,4 +1,5 @@
 (require '[clojure.repl :refer :all])
+(require '[clojure.browser.repl])
 (require '[clojure.pprint :refer :all])
 (require '[missing-utils.core :refer :all])
 

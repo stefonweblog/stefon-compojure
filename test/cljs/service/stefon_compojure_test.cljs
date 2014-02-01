@@ -6,7 +6,8 @@
             [ajax.core :refer [get-default-format
                                normalize-method process-inputs
                                edn-format json-format raw-format
-                               ajax-request]]))
+                               ajax-request]]
+            [clojure.browser.repl :as repl]))
 
 
 (def request-body {:title "Latest In Biotech"

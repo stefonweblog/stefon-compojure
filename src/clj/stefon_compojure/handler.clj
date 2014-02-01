@@ -3,6 +3,7 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
+            ring.adapter.jetty
 
             [stefon-compojure.core :as core]
             [stefon-webui-common.core :as common]))
@@ -74,3 +75,10 @@
 
 (def app
   (handler/site app-routes))
+
+(defn run
+  []
+  (defonce ^:private server
+    (ring.adapter.jetty/run-jetty #'app-routes {:port 8080 :join? false}))
+  server)
+

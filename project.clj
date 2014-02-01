@@ -7,6 +7,7 @@
                  [ring/ring-jetty-adapter "1.2.1"]
                  [com.taoensso/timbre "3.0.0-RC4"]
                  [cljs-ajax "0.2.3"]
+                 [hiccup "1.0.5"]
 
                  ;; TODO - deleteme; checkout lib dependencies
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
@@ -18,8 +19,8 @@
                  #_[stefon "0.1.1-SNAPSHOT"]
                  #_[stefon-webui-common "0.1.0-SNAPSHOT"]
                  #_[responsive-baseline "0.1.0-SNAPSHOT"]]
-  :source-paths ["src/clj"]
-  :test-paths ["test/clj"]
+  :source-paths ["src/clj" "src/cljs"]
+  :test-paths ["test/clj" "test/cljs"]
   :plugins [[lein-ring "0.8.5"]
             [ring/ring-jetty-adapter "1.2.0"]
             [com.cemerick/clojurescript.test "0.2.1"]]
@@ -28,7 +29,7 @@
                                   [ring-mock "0.1.5"]
                                   [midje "1.5.1"]]
                    :plugins [[lein-cljsbuild "1.0.1"]
-                             [com.cemerick/austin "0.1.3"]]}}
+                             [com.cemerick/austin "0.1.4-SNAPSHOT"]]}}
   :cljsbuild {:builds [{:source-paths ["src/cljs" "test/cljs"]
                         :compiler {:output-dir "public/include/js"
                                    :output-to "public/include/js/stefon_compojure.js"
