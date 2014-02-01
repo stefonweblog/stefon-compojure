@@ -45,5 +45,7 @@
   ([result-map]
      (plugin-ack result-map (config/get-config)))
   ([result-map config]
-     (swap! (get-plugin-state) (fn [inp]
-                                 (clojure.core/merge inp result-map)))))
+
+     (swap! (get-plugin-state)
+            (fn [inp]
+              (clojure.core/merge inp result-map)))))
