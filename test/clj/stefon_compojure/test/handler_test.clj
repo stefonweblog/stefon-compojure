@@ -109,11 +109,17 @@
         (is (empty? (:result u2)))))))
 
 ;; TODO plugin/pair function is mixing up requests; untagle in order to run all tests concurrently
-#_(deftest test-list-posts
+(deftest test-list-posts
 
   (testing "List Posts"
 
-    (let [x (shell/stop-system)
+    (timbre/set-level! :warn)
+
+    (shell/start-system)
+    (shell/load-plugin 'stefon-compojure.plugin)
+    (timbre/warn (str "Test output: " (ch/app (r/request :get "/posts"))))
+
+    #_(let [x (shell/stop-system)
           x (shell/start-system)
           x (shell/load-plugin 'stefon-compojure.plugin)
 

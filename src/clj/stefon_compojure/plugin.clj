@@ -1,10 +1,11 @@
 (ns stefon-compojure.plugin
   (:require [clojure.core.async :as async]
             [taoensso.timbre :as timbre]
-            [stefon-compojure.config :as config]))
+            [stefon-compojure.config :as config]
+            [missing-utils.core :as missing]))
 
 
-(def ^:dynamic *plugin-state* (atom { :dispatch-channel (async/chan) }))
+(def ^:dynamic *plugin-state* (atom { :response-messages [] }))
 (defn get-plugin-state [] *plugin-state*)
 
 
@@ -12,11 +13,18 @@
   "Default mechanism for receiving message responses from the kernel. Logs and sends responses to a dispatch channel"
   [env system-atom message]
 
-  (timbre/info "stefon-compojure.plugin/generic-handler CALLED > system-atom[" system-atom
-               "] > message[" message "]")
+  (timbre/warn "stefon-compojure.plugin/generic-handler CALLED > message[" message "]")
 
-  (let [dispatch-channel (-> @(get-plugin-state) :dispatch-channel)]
-    (async/go (async/>! dispatch-channel message))))
+  (swap! (get-plugin-state)
+         (fn [inp]
+           (update-in inp [:response-messages] conj message))))
+
+
+(defn response-check [message filter-check-fn]
+
+  (and (not (empty? (-> @(get-plugin-state) :response-messages)))
+       (filter filter-check-fn
+               (-> @(get-plugin-state) :response-messages))))
 
 
 ;; TODO plugin/pair function is mixing up requests; untagle in order to run all tests concurrently
@@ -24,13 +32,31 @@
   "Binds an input message, to the asynchronous response from the kernel"
   [message]
 
-  (let [sendfn (:sendfn @(get-plugin-state))
-        dispatch-channel (-> @(get-plugin-state) :dispatch-channel)
+  (let [message-id (missing/generate-id)
+        new-message (update-in message [:message]
+                               (fn [inp]
+                                 (assoc inp :message-id message-id)))
 
-        p (promise)
-        x (async/go (deliver p (async/<! dispatch-channel)))]
+        sendfn (:sendfn @(get-plugin-state))
+        response-messages (-> @(get-plugin-state) :response-messages)
+        response-check-fn (fn [inp]
+                            (and (= "kernel" (:from inp))
+                                 (= (-> message :message keys first)
+                                    (:action inp))))
+        p (promise)]
 
-    (sendfn message)
+    (timbre/warn (str "INPUT: " new-message))
+    (sendfn new-message)
+    (deliver p
+             (loop []
+
+               (Thread/sleep 200)
+               (if (response-check message response-check-fn)
+
+                 (first (filter response-check-fn
+                                (-> @(get-plugin-state) :response-messages)))
+                 (recur))))
+
     @p))
 
 (defn plugin

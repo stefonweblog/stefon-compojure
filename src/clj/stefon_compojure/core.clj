@@ -1,5 +1,6 @@
 (ns stefon-compojure.core
-  (:require [stefon-compojure.plugin :as plugin]))
+  (:require [stefon-compojure.plugin :as plugin]
+            [taoensso.timbre :as timbre]))
 
 (defn create-post [input]
 

@@ -20,18 +20,22 @@
                  #_[stefon "0.1.1-SNAPSHOT"]
                  #_[stefon-webui-common "0.1.0-SNAPSHOT"]
                  #_[responsive-baseline "0.1.0-SNAPSHOT"]]
-  :source-paths ["src/clj" "src/cljs"]
-  :test-paths ["test/clj" "test/cljs"]
+
   :plugins [[lein-ring "0.8.5"]
             [ring/ring-jetty-adapter "1.2.0"]
             [com.cemerick/clojurescript.test "0.2.1"]]
-  :ring {:handler stefon-compojure.handler/app}
+
   :profiles {:dev {:dependencies [[com.cemerick/clojurescript.test "0.2.1"]
                                   [ring-mock "0.1.5"]
                                   [midje "1.5.1"]
                                   [alembic "0.2.0"]]
                    :plugins [[lein-cljsbuild "1.0.1"]
                              [com.cemerick/austin "0.1.4-SNAPSHOT"]]}}
+
+  :source-paths ["src/clj" "src/cljs"]
+  :test-paths ["test/clj" "test/cljs"]
+
+  :ring {:handler stefon-compojure.handler/app}
   :cljsbuild {:builds [{:source-paths ["src/cljs" "test/cljs"]
                         :compiler {:output-dir "public/include/js"
                                    :output-to "public/include/js/stefon_compojure.js"

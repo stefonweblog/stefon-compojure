@@ -55,7 +55,7 @@
           (core/delete-post (:params req)))
 
   (GET "/posts" [:as req]
-       (core/list-posts))
+       {:body (core/list-posts)})
 
 
   ;; ===> ASSET
