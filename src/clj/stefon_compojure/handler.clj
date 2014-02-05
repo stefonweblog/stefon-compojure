@@ -4,7 +4,6 @@
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             ring.adapter.jetty
-
             [stefon-compojure.core :as core]
             [stefon-webui-common.core :as common]))
 

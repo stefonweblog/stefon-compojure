@@ -1,8 +1,7 @@
 (ns stefon-compojure.plugin
   (:require [clojure.core.async :as async]
-            [stefon-compojure.config :as config]
-            [stefon-compojure.run :as run]
-            [taoensso.timbre :as timbre]))
+            [taoensso.timbre :as timbre]
+            [stefon-compojure.config :as config]))
 
 
 (def ^:dynamic *plugin-state* (atom { :dispatch-channel (async/chan) }))
@@ -48,11 +47,6 @@
      (plugin-ack result-map (config/get-config)))
 
   ([result-map config]
-
      (swap! (get-plugin-state)
             (fn [inp]
-              (clojure.core/merge inp result-map)))
-
-     (if (:start-server-onload config)
-       (do (run/stop-server)
-           (run/start-server)))))
+              (clojure.core/merge inp result-map)))))
