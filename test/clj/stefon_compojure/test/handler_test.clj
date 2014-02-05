@@ -113,13 +113,13 @@
 
   (testing "List Posts"
 
-    (timbre/set-level! :debug)
+    (timbre/set-level! :warn)
 
-    (shell/start-system)
-    (shell/load-plugin 'stefon-compojure.plugin)
-    (timbre/warn (str "Test output: " (ch/app (r/request :get "/posts"))))
+    (comment (shell/start-system)
+             (shell/load-plugin 'stefon-compojure.plugin)
+             (timbre/warn (str "Test output: " (ch/app (r/request :get "/posts")))))
 
-    #_(let [x (shell/stop-system)
+    (let [x (shell/stop-system)
           x (shell/start-system)
           x (shell/load-plugin 'stefon-compojure.plugin)
 
@@ -131,4 +131,4 @@
 
       (is (= (:status r1) 200))
       (is (= (:status r3) 200))
-      (is (= 2 (count (:result r3)))))))
+      (is (= 2 (count (-> r3 :body :result)))))))
