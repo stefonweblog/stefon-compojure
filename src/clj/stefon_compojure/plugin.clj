@@ -40,9 +40,9 @@
         sendfn (:sendfn @(get-plugin-state))
         response-messages (-> @(get-plugin-state) :response-messages)
         response-check-fn (fn [inp]
-                            (and (= "kernel" (:from inp))
-                                 (= (-> message :message keys first)
-                                    (:action inp))))
+                            (and (= (:from inp) "kernel")
+                                 (= (:action inp) (-> message :message keys first))
+                                 (= (:message-id inp) message-id)))
         p (promise)]
 
     (timbre/warn (str "INPUT: " new-message))
@@ -56,7 +56,6 @@
                  (first (filter response-check-fn
                                 (-> @(get-plugin-state) :response-messages)))
                  (recur))))
-
     @p))
 
 (defn plugin

@@ -113,7 +113,7 @@
 
   (testing "List Posts"
 
-    (timbre/set-level! :warn)
+    (timbre/set-level! :debug)
 
     (shell/start-system)
     (shell/load-plugin 'stefon-compojure.plugin)
